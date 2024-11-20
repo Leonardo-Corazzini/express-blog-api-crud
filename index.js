@@ -18,6 +18,8 @@ app.get('/bacheca', (req, res) => {
     })
 })
 app.use('/posts', postsRouter)
+
+
 app.listen(port, () => {
 console.log(port)
 })
