@@ -55,10 +55,14 @@ function modify(req, res) {
 }	
 
 function destroy(req, res) {
-    const id = parseInt(req.params.id)
-	
-
-	const postIndex = posts.findIndex((post) => post.id === id)
+    const id = req.params.id
+	let postIndex
+    if(!isNaN(parseInt(id))){
+        postIndex = posts.findIndex((post) => post.id === parseInt(id))
+    } else {
+        postIndex = posts.findIndex((post) => post.slug === id)
+    }
+	 
 
 	if (postIndex === -1) {
 		res.status(404)
