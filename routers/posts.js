@@ -1,49 +1,25 @@
 const express = require('express')
 const router = express.Router()
 const posts = require('../data/posts.js')
+const postsController = require('../controllers/postController.js')
 
 // CRUD 
 // index
-router.get('/', (req, res) => {
-	console.log("Lista dei post")
-	res.json(posts)
-})
+router.get('/', postsController.index)
 
 // show
-router.get('/:id', (req, res) => {
-	const id = parseInt(req.params.id)
-	console.log(`Post con id: ${id}`)
-
-	const post = posts.find((p) => p.id === id)
-
-	res.json(post)
-})
+router.get('/:id', postsController.show)
 
 // store
-router.post('/', (req, res) => {
-    console.log('Creo un nuovo post.')
-	res.send('Creo un nuovo post.')
-})
+router.post('/',postsController.store)
 
 // update
-router.put('/:id', (req, res) => {
-	const id = req.params.id
-    console.log(`Aggiorno il post con id: ${id}`)
-	res.send(`Aggiorno il post con id: ${id}`)
-})
+router.put('/:id',postsController.update)
 
 // modify
-router.patch('/:id', (req, res) => {
-	const id = req.params.id
-    console.log(`Modifico il post con id: ${id}`)
-	res.send(`Modifico il post con id: ${id}`)
-})
+router.patch('/:id',postsController.modify)
 
 // destroy
-router.delete('/:id', (req, res) => {
-	const id = req.params.id
-    console.log(`Elimino il post con id: ${id}`)
-	res.send(`Elimino il post con id: ${id}`)
-})
+router.delete('/:id',postsController.destroy)
 
 module.exports = router
