@@ -58,15 +58,58 @@ function store(req, res) {
 }
 
 function update(req, res) {
-	const id = req.params.id
-    console.log(`Aggiorno il post con id: ${id}`)
-	res.send(`Aggiorno il post con id: ${id}`)
+    const { title, slug, content, image , tags } = req.body
+    const id = parseInt(req.params.id)
+	console.log(`Post con id: ${id}`)
+    const post = posts.find((p) => p.id === id)
+    
+    
+    
+    if(!post){
+        res.status(404)
+        res.json({
+            error: "Post not found",
+			message: `Post non trovato`
+        })
+    }
+    post.title = title
+    post.slug = slug
+    post.content = content
+    post.image = image
+    post.tags = tags
+	res.json(post)
 }
 
 function modify(req, res) {
-    const id = req.params.id
-    console.log(`Modifico il post con id: ${id}`)
-	res.send(`Modifico il post con id: ${id}`)
+    const { title, slug, content, image , tags } = req.body
+    const id = parseInt(req.params.id)
+	console.log(`Post con id: ${id}`)
+    const post = posts.find((p) => p.id === id)
+    
+    
+    
+    if(!post){
+        res.status(404)
+        res.json({
+            error: "Post not found",
+			message: `Post non trovato`
+        })
+    }
+    post.title = title
+    post.slug = slug
+    post.content = content
+    post.image = image
+    post.tags = tags
+	
+
+    if (title) post.title = title
+	if (slug) post.slug = slug
+	if (content)  post.content = content
+    if (image)  post.img = content
+    if (tags)  post.tags = content
+    
+    res.json(post)
+
 }	
 
 function destroy(req, res) {
