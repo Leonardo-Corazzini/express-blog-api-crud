@@ -4,6 +4,7 @@ const postsRouter = require('./routers/posts.js')
 const app = express()
 const port = 3000
 const notFound = require('./middlewares/notFound.js')
+const errorsHandler = require('./middlewares/errorsHandler.js')
 
 app.use(express.static('public'))
 app.use(express.json())
@@ -15,14 +16,16 @@ app.get('/', (req, res) => {
 app.get('/bacheca', (req, res) => {
     console.log(req.query.limit);
     res.json({
-        result: posts.slice(0,req.query.limit),
+        result: posts.slice(0, req.query.limit),
         count: posts.length,
     })
 })
 app.use('/posts', postsRouter)
+
+app.use(errorsHandler)
 app.use(notFound)
 
 
 app.listen(port, () => {
-console.log(port)
+    console.log(port)
 })
