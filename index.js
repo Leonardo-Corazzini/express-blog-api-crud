@@ -1,6 +1,7 @@
 const express = require('express')
 const posts = require('./data/posts.js')
 const postsRouter = require('./routers/posts.js')
+const categoryRouter = require('./routers/category.js')
 const app = express()
 const port = 3000
 const notFound = require('./middlewares/notFound.js')
@@ -23,6 +24,7 @@ app.get('/bacheca', (req, res) => {
     })
 })
 app.use('/posts', postsRouter)
+app.use('/category', categoryRouter)
 
 app.use(errorsHandler)
 app.use(notFound)
